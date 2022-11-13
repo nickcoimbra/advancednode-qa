@@ -54,7 +54,10 @@ myDB(async client => {
   // Be sure to add this...
 }).catch(e => {
   app.route('/').get((req, res) => {
-    res.render('pug', { title: e, message: 'Unable to connect to database' })
+    res.render('/views/pug/index', {
+      title: e,
+      message: 'Unable to connect to database'
+    })
   })
 })
 
