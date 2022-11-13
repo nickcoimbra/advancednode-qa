@@ -13,6 +13,7 @@ app.use('/public', express.static(process.cwd() + '/public'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(
   passport.session({
@@ -23,7 +24,7 @@ app.use(
   })
 )
 app.set('view engine', 'pug')
-app.set('views', './views/pug')
+//app.set('views', './views/pug')
 
 //app.route('/').get((req, res) => {
 //  res.render('pug', { title: 'Hello', message: 'Please log in' })
@@ -35,7 +36,7 @@ myDB(async client => {
   // Be sure to change the title
   app.route('/').get((req, res) => {
     // Change the response to render the Pug template
-    res.render('index', {
+    res.render(process.cwd() + '/views/pug/index', {
       title: 'Connected to Database',
       message: 'Please login'
     })
@@ -53,7 +54,7 @@ myDB(async client => {
   // Be sure to add this...
 }).catch(e => {
   app.route('/').get((req, res) => {
-    res.render('index', { title: e, message: 'Unable to connect to database' })
+    res.render('pug', { title: e, message: 'Unable to connect to database' })
   })
 })
 
